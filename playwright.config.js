@@ -17,8 +17,7 @@ export default defineConfig({
     retries: 0,
 
     // Workers (en CI usa 1 solo, en local usa todos)
-    workers: process.env.CI ? 1 : undefined,
-
+    workers: process.env.CI ? 1 : "50%",
     // Reporte HTML
     reporter: "html",
 
