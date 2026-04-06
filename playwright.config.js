@@ -30,6 +30,8 @@ export default defineConfig({
     },
 
     use: {
+        testIdAttribute: "data-test",
+
         // ⏱️ Tiempo máximo para acciones (click, fill, etc)
         actionTimeout: 10500,
 
