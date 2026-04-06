@@ -18,22 +18,25 @@ export const sauceLocators = {
     iconoCart: "shopping-cart-badge", //id
 
     //*Check buy
-    titleYourCart : "title", //id
-    cartList : "cart-list", //id
-    quantityProducts : "inventory-item", //id
+    titleYourCart: "title", //id
+    cartList: "cart-list", //id
+    quantityProducts: "inventory-item", //id
     buttonCheckout: /Checkout/i,
 
     //*Form pay
-    titleForm : "title", //id
-    titleFormInfo : /Checkout: Your Information/,
-    inputFirstName: /First Name/i,
-    inputLastName: /Last Name/i,
-    inputPostalCode: /Zip\/Postal Code/i,
-    buttonContinue: "#continue",
+    titleForm: "title", //id
+    titleFormInfo: /Checkout: Your Information/i,
+    inputFirstName: "firstName", //id
+    inputLastName: "lastName", //id
+    inputPostalCode: "postalCode", //id
+    buttonContinue: "continue", //id
 
     //*Confirm Pay
-    buttonFinish: /Finish/i,
+    titleCheckout: "title", //id
+    titleCheckoutInfo: /Checkout: Overview/i,
+    buttonFinish: "finish",
 
     //*Susscefull buy
-    messageConfirm: /Thank you for your order!/i,
+    messageConfirmId: "complete-header",
+    messageConfirmTexto: /Thank you for your order!/i,
 };

@@ -25,9 +25,20 @@ test.describe("Desacoplamiento", () => {
         await expect(page.getByTestId(sauceLocators.cartList).getByTestId(sauceLocators.quantityProducts)).toHaveCount(2);
         await page.getByRole("button", {name: sauceLocators.buttonCheckout}).click()
 
-        await expect(page.getByTestId(sauceLocators.titleForm).filter({hasText : sauceLocators.titleFormInfo})).toBeVisible();
 
-        
+        //Completar Formulario
+        await expect(page.getByTestId(sauceLocators.titleForm).filter({hasText : sauceLocators.titleFormInfo})).toBeVisible();
+        await page.getByTestId(sauceLocators.inputFirstName).fill("Carlos");
+        await page.getByTestId(sauceLocators.inputLastName).fill("Morales");
+        await page.getByTestId(sauceLocators.inputPostalCode).fill("1424");
+        await page.getByTestId(sauceLocators.buttonContinue).click();
+
+        //Checkout
+        await expect(page.getByTestId(sauceLocators.titleCheckout).filter({hasText : sauceLocators.titleCheckoutInfo})).toBeVisible();
+        await page.getByTestId(sauceLocators.buttonFinish).click();
+
+        //Compra exitosa
+        await expect(page.getByTestId(sauceLocators.messageConfirmId).filter({hasText: sauceLocators.messageConfirmTexto})).toBeVisible()
 
 
     });
