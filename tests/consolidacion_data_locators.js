@@ -1,17 +1,19 @@
 
 export const intLocators = {
-    page: "https://the-internet.herokuapp.com/login",
+    url: "https://the-internet.herokuapp.com/login",
 
     //Login
     userInput: /Username/i, //bylabel
     passwordInput: /Password/i, //bylabel
     loginButton: /Login/i, //bytext
 
-    correctUser: /tomsmith/i,
-    correctPassword: /SuperSecretPassword!/i,
+    correctUser: "tomsmith",
+    correctPassword: "SuperSecretPassword!",
 
-    incorrectUser: /xxxxtomsmith/i,
-    incorrectUser: /xxxxSuperSecretPassword!/i,
+    incorrectUser: "xxxxtomsmit",
+    incorrectPassword: "xxxxSuperSecretPassword!",
 
-    messageLogin : /you logged into a secure area/i,
+    messageLogin: /you logged into a secure area/i,
+    messageInvalidLoginUser: /Your username is invalid!/i,
+    messageInvalidLoginPassword: /Your password is invalid!/i,
 };

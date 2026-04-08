@@ -1,18 +1,34 @@
 import { test, expect } from "@playwright/test";
 
 import { intLocators } from "./consolidacion_data_locators.js";
+import { goToUrl } from "./consolidacion_utils_functions";
 import { intentarLogin } from "./consolidacion_utils_functions.js";
 
 test.describe("Pruebas de seguridad y acceso", () => {
     test.beforeEach(async ({ page }) => {
-
-        await page.goto(intLocators.page);
-        await page.getByLabel(intLocators.userInput).fill(intLocators.correctUser);
-        await page.getByLabel(intLocators.passwordInput).fill(intLocators.correctPassword)
-        await page.getByText(intLocators.loginButton).click()
+        await goToUrl(page)
+    });
+    
+    test("login exitoso", async ({ page }) => {
+        await intentarLogin(page, intLocators.correctUser, intLocators.correctPassword);
+        await expect(page.getByText(intLocators.messageLogin)).toBeVisible();
     });
 
-    test("login", async ({page}) => {
-        await expect(page.getByText(intLocators.messageLogin)).toBeVisible()
-    })
+    test("Login fallido - Username invalid", async ({ page }) => {
+
+        await intentarLogin(page, intLocators.incorrectUser, intLocators.correctPassword)
+
+        await expect(page.getByText(intLocators.messageInvalidLoginUser)).toBeVisible()
+    });
+
+    test("Login fallido - Password invalid", async ({ page }) => {
+
+        await intentarLogin(page, intLocators.correctUser, intLocators.incorrectPassword)
+
+        await expect(page.getByText(intLocators.messageInvalidLoginPassword)).toBeVisible()
+    });
+
+    
+
+
 });
