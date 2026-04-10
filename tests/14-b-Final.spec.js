@@ -2,35 +2,21 @@ import { test , expect } from "@playwright/test";
 
 import {interLocators} from "./14-b-locators";
 
+import {hacerLogin} from "./14-b-funciones";
+
 test.describe("14 - B", () => {
 
     test.beforeEach( async ({page}) => {
-        await page.goto("https://the-internet.herokuapp.com");
+        await page.goto(interLocators.page);
     });
 
     test("Login exitoso", async ({page}) => {
-
-        await page.getByText(interLocators.linkToLogin).click();
-
-        await page.getByLabel(interLocators.inputUserName).fill(interLocators.userName);
-
-        await page.getByLabel(interLocators.inputPassword).fill(interLocators.userPassword)
-
-        await page.getByRole("button", {name : interLocators.buttonLogin}).click(),
-
-        await expect(page.getByText(interLocators.messageLoginSuccesfull)).toBeVisible()
+        await hacerLogin(page, interLocators.userName, interLocators.userPassword, interLocators.messageLoginSuccesfull);
     })
+
     test("Login fallido", async ({page}) => {
 
-        await page.getByText(interLocators.linkToLogin).click();
-
-        await page.getByLabel(interLocators.inputUserName).fill(interLocators.userNameWrong);
-
-        await page.getByLabel(interLocators.inputPassword).fill(interLocators.userPasswordWrong)
-
-        await page.getByRole("button", {name : interLocators.buttonLogin}).click(),
-
-        await expect(page.getByText(interLocators.messageLoginFailed)).toBeVisible()
+        await hacerLogin(page, interLocators.userNameWrong, interLocators.userPasswordWrong, interLocators.messageLoginFailed )
     })
     
 
