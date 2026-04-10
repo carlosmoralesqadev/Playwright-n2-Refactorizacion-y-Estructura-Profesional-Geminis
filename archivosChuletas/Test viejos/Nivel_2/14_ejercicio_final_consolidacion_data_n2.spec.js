@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
 
-import { intLocators } from "./consolidacion_data_locators.js";
-import { goToUrl } from "./consolidacion_utils_functions";
-import { intentarLogin } from "./consolidacion_utils_functions.js";
+import { intLocators } from "../../../tests/consolidacion_data_locators.js";
+import { goToUrl } from "../../../tests/consolidacion_utils_functions.js";
+import { intentarLogin } from "../../../tests/consolidacion_utils_functions.js";
 
 test.describe("Pruebas de seguridad y acceso", () => {
     test.beforeEach(async ({ page }) => {
