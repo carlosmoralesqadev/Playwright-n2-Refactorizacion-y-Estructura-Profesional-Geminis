@@ -10,18 +10,16 @@ test.describe("14 - B", () => {
     });
 
     test("Login exitoso", async ({ page }) => {
-        await hacerLogin(page, interLocators.login.userName, interLocators.login.userPassword, interLocators.login.messageLoginSuccesfull);
-
-        await page.getByRole("link", { name: interLocators.login.buttonLogout }).click();
-
-        await expect(page.getByText(interLocators.login.messageLoginLogout)).toBeVisible();
+        await hacerLogin(page, interLocators.login.userName, interLocators.login.userPassword);
     });
 
     test("Logout", async ({ page }) => {
-        await hacerLogout(page, interLocators.login.userName, interLocators.login.userPassword, interLocators.login.messageLoginSuccesfull,  interLocators.login.buttonLogout, interLocators.login.messageLoginLogout)
+        await hacerLogout(page, interLocators.login.userName, interLocators.login.userPassword);
     });
 
     test("Login fallido", async ({ page }) => {
         await hacerLogin(page, interLocators.login.userNameWrong, interLocators.login.userPasswordWrong, interLocators.login.messageLoginFailed);
+
+        await expect(page.getByRole("button", { name: interLocators.login.buttonLogin })).toBeVisible();
     });
 });
