@@ -14,7 +14,9 @@ export const hacerLogin = async (page, user, password, mensajeEsperado) => {
     await expect(page.getByText(mensajeEsperado)).toBeVisible();
 };
 
-export const hacerLogout = async (page, buttonLogout, messageLogout) => {
+export const hacerLogout = async (page, user, password, mensajeLogin, buttonLogout, messageLogout) => {
+    await hacerLogin(page, user, password, mensajeLogin);
+
     await page.getByRole("link", { name: buttonLogout }).click();
 
     await expect(page.getByText(messageLogout)).toBeVisible();
