@@ -10,7 +10,9 @@ test.describe("14 - B", () => {
     });
 
     test("Login exitoso", async ({ page }) => {
-        await hacerLogin(page, interLocators.login.userName, interLocators.login.userPassword);
+        await hacerLogin(page, interLocators.login.userName, interLocators.login.userPassword, true);
+
+
     });
 
     test("Logout", async ({ page }) => {
@@ -18,8 +20,6 @@ test.describe("14 - B", () => {
     });
 
     test("Login fallido", async ({ page }) => {
-        await hacerLogin(page, interLocators.login.userNameWrong, interLocators.login.userPasswordWrong, interLocators.login.messageLoginFailed);
-
-        await expect(page.getByRole("button", { name: interLocators.login.buttonLogin })).toBeVisible();
+        await hacerLogin(page, interLocators.login.userNameWrong, interLocators.login.userPasswordWrong, false);
     });
 });

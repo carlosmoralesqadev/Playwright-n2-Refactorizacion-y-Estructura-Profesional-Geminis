@@ -14,6 +14,6 @@ export const interLocators = {
         messageLoginSuccesfull: /You logged into a secure area!/i, //string
         messageLoginFailed: /Your username is invalid!/i, //string
         buttonLogout: /Logout/i,
-        messageLoginLogout: / You logged out of the secure area!/i,
+        messageLogout: / You logged out of the secure area!/i,
     },
 };
