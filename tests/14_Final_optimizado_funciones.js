@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { interLocators } from "./14-b-locators";
+import { interLocators } from "./14_Final_optimizado_locators";
 
 export const hacerLogin = async (page, user, password, statusEsperado) => {
     //*Elementos
@@ -24,14 +24,14 @@ export const hacerLogin = async (page, user, password, statusEsperado) => {
     if (statusEsperado === "logout") {
         await loginExitoso(buttonLogin, buttonLogout, messageLoginSuccesfull);
         await hacerLogout(buttonLogout, buttonLogin, messageLogout);
-    }else if (statusEsperado === true) {
+    } else if (statusEsperado === true) {
         await loginExitoso(buttonLogin, buttonLogout, messageLoginSuccesfull);
     } else if (statusEsperado === false) {
         await loginFailed(buttonLogin, buttonLogout, messageLoginFailed);
     } else {
         console.log("NO ENVIASTE EL PARAMETRO de estatus esperado");
     }
-};;
+};
 
 const loginExitoso = async (buttonLogin, buttonLogout, messageLoginSuccesfull) => {
     //Validar mensaje de login exitoso

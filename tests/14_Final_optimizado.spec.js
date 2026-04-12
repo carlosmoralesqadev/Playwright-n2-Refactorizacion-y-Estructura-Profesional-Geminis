@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-import { interLocators } from "./14-b-locators";
-import { hacerLogin } from "./14-b-funciones";
+import { interLocators } from "./14_Final_optimizado_locators";
+import { hacerLogin } from "./14_Final_optimizado_funciones";
 
 test.describe("14 - B", () => {
     test.beforeEach(async ({ page }) => {
