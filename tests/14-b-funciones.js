@@ -1,46 +1,39 @@
-import { test, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { interLocators } from "./14-b-locators";
 
 export const hacerLogin = async (page, user, password, statusEsperado) => {
     //*Elementos
-    //Input userName
-    const inputUserName = await page.getByLabel(interLocators.login.inputUserName);
-    //Input userName
-    const inputPassword = await page.getByLabel(interLocators.login.inputPassword);
     //Boton Login
-    const buttonLogin = await page.getByRole("button", { name: interLocators.login.buttonLogin });
-
-
-
-
-
-
-
-
-    //*Acciones
-
-    await completarFormulario(page, user, password);
-
-
-    if(statusEsperado === true ){
-        loginExitoso(page)
-    }else if(statusEsperado === false ){
-        loginFailed;(page)
-    }else{
-        console.log("NO ENVIASTE EL PARAMETRO de estatus esperado")
-    }
-};
-
-const loginExitoso = async (page) => {
-    //Boton Login
-    const buttonLogin = await page.getByRole("button", { name: interLocators.login.buttonLogin });
+    const buttonLogin = page.getByRole("button", { name: interLocators.login.buttonLogin });
 
     //Mensaje login exitoso
-    const messageLoginSuccesfull = await page.getByText(interLocators.login.messageLoginSuccesfull);
+    const messageLoginSuccesfull = page.getByText(interLocators.login.messageLoginSuccesfull);
 
     //Boton logout
-    const buttonLogout = await page.getByRole("link", { name: interLocators.login.buttonLogout });
+    const buttonLogout = page.getByRole("link", { name: interLocators.login.buttonLogout });
 
+    //Mensaje login FALLIDO
+    const messageLoginFailed = page.getByText(interLocators.login.messageLoginFailed);
+
+    //Mensaje logout
+    const messageLogout = page.getByText(interLocators.login.messageLogout);
+
+    //*Acciones
+    await completarFormulario(page, user, password, buttonLogin);
+
+    if (statusEsperado === "logout") {
+        await loginExitoso(buttonLogin, buttonLogout, messageLoginSuccesfull);
+        await hacerLogout(buttonLogout, buttonLogin, messageLogout);
+    }else if (statusEsperado === true) {
+        await loginExitoso(buttonLogin, buttonLogout, messageLoginSuccesfull);
+    } else if (statusEsperado === false) {
+        await loginFailed(buttonLogin, buttonLogout, messageLoginFailed);
+    } else {
+        console.log("NO ENVIASTE EL PARAMETRO de estatus esperado");
+    }
+};;
+
+const loginExitoso = async (buttonLogin, buttonLogout, messageLoginSuccesfull) => {
     //Validar mensaje de login exitoso
     await expect(messageLoginSuccesfull).toBeVisible();
 
@@ -51,15 +44,7 @@ const loginExitoso = async (page) => {
     await expect(buttonLogout).toBeVisible();
 };
 
-const loginFailed = async (page) => {
-    //Boton Login
-    const buttonLogin = await page.getByRole("button", { name: interLocators.login.buttonLogin });
-
-    //Boton logout
-    const buttonLogout = await page.getByRole("link", { name: interLocators.login.buttonLogout });
-    //Mensaje login FALLIDO
-    const messageLoginFailed = await page.getByText(interLocators.login.messageLoginFailed);
-
+const loginFailed = async (buttonLogin, buttonLogout, messageLoginFailed) => {
     //Validar este visible el boton de Login
     await expect(buttonLogin).toBeVisible();
 
@@ -68,16 +53,13 @@ const loginFailed = async (page) => {
 
     //Validar este visible el mensaje de login fallido
     await expect(messageLoginFailed).toBeVisible();
-
 };
 
-const completarFormulario = async (page, user, password) => {
+const completarFormulario = async (page, user, password, buttonLogin) => {
     //Input userName
-    const inputUserName = await page.getByLabel(interLocators.login.inputUserName);
+    const inputUserName = page.getByLabel(interLocators.login.inputUserName);
     //Input userName
-    const inputPassword = await page.getByLabel(interLocators.login.inputPassword);
-    //Boton Login
-    const buttonLogin = await page.getByRole("button", { name: interLocators.login.buttonLogin });
+    const inputPassword = page.getByLabel(interLocators.login.inputPassword);
 
     //*Acciones
     //Ir a la sesscion de login
@@ -93,24 +75,9 @@ const completarFormulario = async (page, user, password) => {
     await buttonLogin.click();
 };
 
-
-
-export const hacerLogout = async (page, user, password) => {
-    //Boton Login
-    const buttonLogin = await page.getByRole("button", { name: interLocators.login.buttonLogin });
-    //Boton logout
-    const buttonLogout = await page.getByRole("link", { name: interLocators.login.buttonLogout });
-    //Mensaje logout
-    const messageLogout = await page.getByText(interLocators.login.messageLogout);
-
-    await hacerLogin(page, user, password);
-
-    //* HASTA ACA HE COLOCADO LOS MISMO NOMBRE
-
+const hacerLogout = async (buttonLogout, buttonLogin, messageLogout) => {
     await buttonLogout.click();
-
     await expect(messageLogout).toBeVisible();
-
     await expect(buttonLogout).not.toBeVisible();
     await expect(buttonLogin).toBeVisible();
 };
